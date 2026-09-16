@@ -9,6 +9,7 @@ function App() {
   const [cloud,setcloud]=useState("");
   const [temp,settemp]=useState("");
   const [desc,setdesc]=useState("");
+  const [error,seterror]=useState("");
 
   function handlechange(event){
     setcity(event.target.value)
@@ -22,7 +23,15 @@ function App() {
           setcloud(sucess.data.weather[0].main)
           setdesc(sucess.data.weather[0].description)
           settemp(sucess.data.main.temp)
-          console.log(sucess)
+          seterror("")
+          
+    })
+
+    weatherdata.catch(function(){
+      seterror("Enter the Valid City Name Bro")
+      setcloud("")
+      setdesc("")
+      settemp("")
     })
   }
 
@@ -74,6 +83,11 @@ function App() {
 
 
         </div>
+
+        <div className='text-center'>
+          <p className='text-3xl mt-20 text-red-600'>{error}</p>
+        </div>
+        
       </div>
     </>
   )
